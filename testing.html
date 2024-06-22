@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amazon Invoice Template</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .invoice-container {
+            width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+        }
+        .invoice-header img {
+            max-height: 50px;
+        }
+        .invoice-header div {
+            text-align: right;
+        }
+        .invoice-details, .customer-details {
+            margin-top: 20px;
+        }
+        .customer-details, .invoice-details div {
+            display: flex;
+            justify-content: space-between;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .invoice-table th, .invoice-table td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: left;
+        }
+        .invoice-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .signature {
+            text-align: right;
+        }
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .bb {
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice-container">
+        <div class="invoice-header">
+            <div>
+                <img src="amazon-logo.png" alt="Amazon Logo">
+            </div>
+            <div>
+                <p>Amazon<br>
+                GSTIN: 26AABCDE3836R1ZQ<br>
+                Q-City, 2nd Floor-Block A & Block B Survey Number-109,110,111/2,<br>
+                Nanakramguda Village Serilingampally Mandal, Ranga Reddy Dist.<br>
+                Hyderabad, TELANGANA, 500032<br>
+                Mobile: 9999999999<br>
+                Email: Swipe@getswipe.in
+                </p>
+            </div>
+        </div>
+        <div class="invoice-details">
+            <div>
+                <p>Invoice #: INV-1</p>
+                <p>Invoice Date: 16 Jun 2023</p>
+                <p>Due Date: 16 Jun 2023</p>
+            </div>
+            <div>
+                <p>Place of Supply: 09-UTTARPRADESH</p>
+            </div>
+        </div>
+        <div class="customer-details">
+            <div>
+                <p><strong>Customer Details:</strong></p>
+                <p>
+                    Amit Agarwal<br>
+                    Babuganj, Hasanganj<br>
+                    Lucknow, UTTARPRADESH, 226007<br>
+                    Ph: 9999999999
+                </p>
+            </div>
+            <div>
+                <p><strong>Shipping Address:</strong></p>
+                <p>
+                    Babuganj, Hasanganj<br>
+                    Lucknow, UTTARPRADESH, 226007
+                </p>
+            </div>
+        </div>
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>Rate/Item</th>
+                    <th>Qty</th>
+                    <th>Taxable Value</th>
+                    <th>Tax Amount</th>
+                    <th>Amount</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Samsung Galaxy F23</td>
+                    <td>14,405.93</td>
+                    <td>1</td>
+                    <td>14,405.93</td>
+                    <td>2,593.07 (18%)</td>
+                    <td>16,999.00</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Samsung 45 Watt Travel Adapter</td>
+                    <td>2,117.80</td>
+                    <td>1</td>
+                    <td>2,117.80</td>
+                    <td>381.20 (18%)</td>
+                    <td>2,499.00</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="invoice-footer">
+            <div>
+                <p><strong>Total Taxable Amount:</strong> 16,523.73</p>
+                <p><strong>IGST 18.0%:</strong> 2,974.27</p>
+                <p><strong>Total:</strong> 19,498.00</p>
+            </div>
+            <div>
+                <p><strong>Bank Details:</strong></p>
+                <p>YES BANK<br>
+                Account #: 66789999222445<br>
+                IFSC: YESB9994567<br>
+                Branch: Kodihalli
+                </p>
+            </div>
+        </div>
+        <div class="footer-note">
+            <p>Thank you for the business</p>
+            <p>Terms and Conditions:</p>
+            <p>1. Goods once sold cannot be taken back or exchanged.<br>
+            2. We are not the manufacturers, company will stand for warranty as per their terms and conditions.<br>
+            3. Interest @24% p.a. will be charged for uncleared bills beyond 15 days.<br>
+            4. Subject to local jurisdiction.
+            </p>
+        </div>
+        <div class="signature">
+            <p>For Amazon</p>
+            <img src="signature.png" alt="Signature" style="width: 100px;">
+            <p>Authorized Signatory</p>
+        </div>
+    </div>
+</body>
+</html>

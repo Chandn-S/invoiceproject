@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Invoice Templates</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        .invoice-container {
+            max-width: 800px;
+            margin: auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+            background-color: #fff;
+        }
+
+        .invoice-header {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 2px solid #000;
+            padding-bottom: 20px;
+        }
+
+        .invoice-header img {
+            max-height: 50px;
+        }
+
+        .invoice-header div {
+            text-align: right;
+        }
+
+        .invoice-details,
+        .customer-details {
+            margin-top: 20px;
+        }
+
+        .customer-details,
+        .invoice-details div {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .invoice-table th,
+        .invoice-table td {
+            border: 1px solid #000;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .invoice-footer {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature {
+            text-align: right;
+        }
+
+        .footer-note {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .template {
+            display: none;
+        }
+
+        .template.active {
+            display: block;
+        }
+
+        form {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            background-color: #fff;
+        }
+
+        form div {
+            margin-bottom: 10px;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input,
+        form select,
+        form textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+            font-family: 'Arial', sans-serif;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        .items-container {
+            margin-top: 20px;
+        }
+
+        .item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item input {
+            margin-right: 10px;
+        }
+
+        .item button {
+            padding: 5px 10px;
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            font-size: 14px;
+        }
+
+        .item button:hover {
+            background-color: #c82333;
+        }
+
+        .add-item-button {
+            background-color: #28a745;
+            font-size: 16px;
+        }
+
+        .add-item-button:hover {
+            background-color: #218838;
+        }
+
+        .generate-invoice-button {
+            background-color: #007BFF;
+            font-size: 16px;
+        }
+
+        .generate-invoice-button:hover {
+            background-color: #0056b3;
+        }
+
+        .bb {
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="invoiceForm">
+        <div>
+            <label for="templateSelect">Select Template:</label>
+            <select id="templateSelect" name="templateSelect">
+                <option value="template1">Big Bazaar</option>
+                <option value="template2">TATA Motors</option>
+            </select>
+        </div>
+        <div>
+            <label for="invoiceNumber">Invoice Number:</label>
+            <input type="text" id="invoiceNumber" name="invoiceNumber" required>
+        </div>
+        <div>
+            <label for="invoiceDate">Invoice Date:</label>
+            <input type="date" id="invoiceDate" name="invoiceDate" required>
+        </div>
+        <div>
+            <label for="dueDate">Due Date:</label>
+            <input type="date" id="dueDate" name="dueDate" required>
+        </div>
+        <div>
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+        </div>
+        <div>
+            <label for="customerAddress">Customer Address:</label>
+            <textarea id="customerAddress" name="customerAddress" required></textarea>
+        </div>
+        <div>
+            <label for="customerPhone">Customer Phone:</label>
+            <input type="tel" id="customerPhone" name="customerPhone" required>
+        </div>
+        <div class="items-container" id="itemsContainer">
+            <h3>Items</h3>
+            <div class="item">
+                <input type="text" name="itemName" placeholder="Item Name" required>
+                <input type="text" name="itemHsn" placeholder="HSN/SAC" required>
+                <input type="number" name="itemQty" placeholder="Quantity" required>
+                <input type="number" name="itemRate" placeholder="Rate" required>
+                <input type="number" name="itemTax" placeholder="Tax (%)" required>
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            </div>
+        </div>
+        <button type="button" class="add-item-button" onclick="addItem()">Add Item</button>
+        <button type="submit" class="generate-invoice-button">Generate Invoice</button>
+    </form>
+
+    <!-- Template 1 -->
+    <div id="template1" class="invoice-container template">
+        <div class="invoice-header">
+            <div>
+                <img src="Big Bazaar.svg" alt="Big Bazaar Logo" style="align-items: center;">
+                <h2 style="text-align: left;">Big Bazaar</h2>
+                <p class="bb">GSTIN: 27AAACT2727Q1ZW<br>
+                    Address: Nigadi Bhosari Road, PIMPRI, Pune, MAHARASHTRA, 411018<br>
+                    Mobile: 9999999999
+                </p>
+            </div>
+            <div>
+                <h3>Invoice</h3>
+                <p>Invoice #: <span id="template1InvoiceNumber"></span><br>
+                    Date: <span id="template1InvoiceDate"></span><br>
+                    Due Date: <span id="template1DueDate"></span><br>
+                    Place of Supply: <span id="template1PlaceOfSupply">36-TELANGANA</span>
+                </p>
+            </div>
+        </div>
+        <div class="customer-details">
+            <div>
+                <p><strong>Customer Details:</strong></p>
+                <p id="template1CustomerDetails"></p>
+            </div>
+            <div>
+                <p><strong>Shipping Address:</strong></p>
+                <p id="template1ShippingAddress"></p>
+            </div>
+        </div>
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>HSN/SAC</th>
+                    <th>Qty</th>
+                    <th>Taxable Value</th>
+                    <th>Tax Amount</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody id="template1Items"></tbody>
+        </table>
+        <div class="invoice-footer">
+            <div>
+                <p><strong>Bank Details:</strong><br>
+                    YES BANK<br>
+                    Account #: 667899992222445<br>
+                    IFSC: YESB9994567<br>
+                    Branch: Kodihalli
+                </p>
+                <div>
+                    <img src="qr-code.svg" alt="QR Code">
+                </div>
+            </div>
+            <div class="signature">
+                <p>For Big Bazaar</p>
+                <img src="Big Bazaar.svg" alt="Signature" style="width: 100px;">
+                <p>Authorized Signatory</p>
+            </div>
+        </div>
+        <div class="footer-note">
+            <p>Page 1 / 1</p>
+            <p>This is a digitally signed document</p>
+        </div>
+    </div>
+
+    <!-- Template 2 -->
+    <div id="template2" class="invoice-container template">
+        <div class="invoice-header">
+            <div>
+                <img src="TATA.svg" alt="TATA Motors Logo">
+                <h2>TATA MOTORS LIMITED</h2>
+                <p>GSTIN 27AAACT2727Q1ZW<br>
+                    Nigadi Bhosari Road, PIMPRI<br>
+                    Pune, MAHARASHTRA, 411018<br>
+                    Mobile: 9999999999
+                </p>
+            </div>
+            <div>
+                <h3>Invoice</h3>
+                <p>Invoice #: <span id="template2InvoiceNumber"></span><br>
+                    Date: <span id="template2InvoiceDate"></span><br>
+                    Due Date: <span id="template2DueDate"></span><br>
+                    Place of Supply: <span id="template2PlaceOfSupply">36-TELANGANA</span>
+                </p>
+            </div>
+        </div>
+        <div class="customer-details">
+            <div>
+                <p><strong>Customer Details:</strong></p>
+                <p id="template2CustomerDetails"></p>
+            </div>
+            <div>
+                <p><strong>Shipping Address:</strong></p>
+                <p id="template2ShippingAddress"></p>
+            </div>
+        </div>
+        <table class="invoice-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Item</th>
+                    <th>HSN/SAC</th>
+                    <th>Qty</th>
+                    <th>Taxable Value</th>
+                    <th>Tax Amount</th>
+                    <th>Total Amount</th>
+                </tr>
+            </thead>
+            <tbody id="template2Items"></tbody>
+        </table>
+        <div class="invoice-footer">
+            <div>
+                <p><strong>Bank Details:</strong><br>
+                    YES BANK<br>
+                    Account #: 667899992222445<br>
+                    IFSC: YESB9994567<br>
+                    Branch: Kodihalli
+                </p>
+                <div>
+                    <img src="qr-code.svg" alt="QR Code">
+                </div>
+            </div>
+            <div class="signature">
+                <p>For TATA MOTORS LIMITED</p>
+                <img src="TATA.svg" alt="Signature" style="width: 100px;">
+                <p>Authorized Signatory</p>
+            </div>
+        </div>
+        <div class="footer-note">
+            <p>Page 1 / 1</p>
+            <p>This is a digitally signed document</p>
+        </div>
+    </div>
+
+    <script>
+        function populateTemplate(templateId, data) {
+            document.getElementById(`${templateId}InvoiceNumber`).innerText = data.invoiceNumber;
+            document.getElementById(`${templateId}InvoiceDate`).innerText = data.invoiceDate;
+            document.getElementById(`${templateId}DueDate`).innerText = data.dueDate;
+            document.getElementById(`${templateId}CustomerDetails`).innerHTML = `
+                ${data.customerName}<br>
+                ${data.customerAddress}<br>
+                Ph: ${data.customerPhone}
+            `;
+            document.getElementById(`${templateId}ShippingAddress`).innerHTML = `
+                Survey 115/1, ISB Rd, Financial District<br>
+                Gachibowli, Nankramguda<br>
+                Hyderabad, TELANGANA, 500032
+            `;
+            const itemsContainer = document.getElementById(`${templateId}Items`);
+            itemsContainer.innerHTML = '';
+            data.items.forEach((item, index) => {
+                const taxAmount = (item.rate * item.quantity) * (item.tax / 100);
+                const totalAmount = (item.rate * item.quantity) + taxAmount;
+                itemsContainer.innerHTML += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td>${item.name}</td>
+                        <td>${item.hsn}</td>
+                        <td>${item.quantity}</td>
+                        <td>${(item.rate * item.quantity).toFixed(2)}</td>
+                        <td>${taxAmount.toFixed(2)}</td>
+                        <td>${totalAmount.toFixed(2)}</td>
+                    </tr>
+                `;
+            });
+        }
+
+        document.getElementById('invoiceForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(e.target);
+            const data = {
+                invoiceNumber: formData.get('invoiceNumber'),
+                invoiceDate: formData.get('invoiceDate'),
+                dueDate: formData.get('dueDate'),
+                customerName: formData.get('customerName'),
+                customerAddress: formData.get('customerAddress'),
+                customerPhone: formData.get('customerPhone'),
+                items: []
+            };
+
+            document.querySelectorAll('.item').forEach(item => {
+                data.items.push({
+                    name: item.querySelector('input[name="itemName"]').value,
+                    hsn: item.querySelector('input[name="itemHsn"]').value,
+                    quantity: parseFloat(item.querySelector('input[name="itemQty"]').value),
+                    rate: parseFloat(item.querySelector('input[name="itemRate"]').value),
+                    tax: parseFloat(item.querySelector('input[name="itemTax"]').value)
+                });
+            });
+
+            const selectedTemplate = formData.get('templateSelect');
+
+            populateTemplate(selectedTemplate, data);
+
+            document.querySelectorAll('.template').forEach(template => template.classList.remove('active'));
+            document.getElementById(selectedTemplate).classList.add('active');
+        });
+
+        function addItem() {
+            const itemsContainer = document.getElementById('itemsContainer');
+            const newItem = document.createElement('div');
+            newItem.classList.add('item');
+            newItem.innerHTML = `
+                <input type="text" name="itemName" placeholder="Item Name" required>
+                <input type="text" name="itemHsn" placeholder="HSN/SAC" required>
+                <input type="number" name="itemQty" placeholder="Quantity" required>
+                <input type="number" name="itemRate" placeholder="Rate" required>
+                <input type="number" name="itemTax" placeholder="Tax (%)" required>
+                <button type="button" onclick="removeItem(this)">Remove</button>
+            `;
+            itemsContainer.appendChild(newItem);
+        }
+
+        function removeItem(button) {
+            button.parentElement.remove();
+        }
+    </script>
+</body>
+
+</html>

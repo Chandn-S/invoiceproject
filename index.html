@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POINT OF SALE INTERFACE</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+            color: #495057;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #343a40; /* dark navbar */
+        }
+        .navbar-brand {
+            color: #ffffff; /* white text */
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        .navbar-nav .nav-link {
+            color: #ffffff; /* white text */
+        }
+        .navbar-nav .nav-link:hover {
+            color: #cccccc; /* light grey on hover */
+        }
+        .safe {
+            background-color: #28a745; /* green */
+            color: #ffffff; /* white text */
+            text-align: center;
+            padding: 10px 20px; /* Adjusted padding */
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+        .content-section {
+            padding: 50px 0;
+        }
+        .feature-img {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #343a40; /* dark grey */
+        }
+        .trusted-customers {
+            color: orangered;
+            text-align: center;
+            margin-top: 20px;
+            font-size: 1.5rem; /* Adjusted font size */
+            font-weight: bold;
+        }
+        .btn-primary {
+            background-color: #007bff; /* blue */
+            border-color: #007bff; /* blue */
+            padding: 12px 40px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3; /* darker blue on hover */
+            border-color: #0056b3; /* darker blue on hover */
+        }
+        .btn-secondary {
+            background-color: #6c757d; /* grey */
+            border-color: #6c757d; /* grey */
+            padding: 12px 40px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268; /* darker grey on hover */
+            border-color: #5a6268; /* darker grey on hover */
+        }
+        .free-invoice-btn {
+            text-align: center;
+            margin-top: 50px;
+        }
+        /* Additional Styles for Enhanced Visual Appeal */
+        .hero-section {
+            background-color: #007bff;
+            color: #ffffff;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .hero-section h1 {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .hero-section p {
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+        }
+        .feature-section {
+            background-color: #ffffff;
+            padding: 100px 0;
+            text-align: center;
+        }
+        .feature-section .feature-img {
+            max-width: 80%;
+            margin: 0 auto; /* Center align horizontally */
+            display: block; /* Ensure image behaves like a block element */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+        }
+        .feature-section h2 {
+            font-size: 2.5rem;
+            color: #343a40;
+            margin-bottom: 30px;
+        }
+        .feature-section p {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+        /* Carousel Section */
+        .carousel-item img {
+            width: 100%; /* Ensure images are responsive */
+            height: auto; /* Maintain aspect ratio */
+            max-height: 585.33px; /* Limit height to maintain aspect ratio */
+            object-fit: contain; /* Maintain aspect ratio and fit inside the container */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* subtle shadow */
+        }
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: #007bff; /* blue background for carousel controls */
+        }
+        .carousel-control-prev,
+        .carousel-control-next {
+            width: auto; /* Adjust width as needed */
+        }
+        .carousel-control-prev:hover,
+        .carousel-control-next:hover {
+            background-color: #0056b3; /* darker blue on hover */
+        }
+        /* Footer Styles */
+        .footer-section {
+            padding: 50px 0;
+            background-color: #ffffff;
+            text-align: center;
+        }
+        .footer-logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .footer-tagline {
+            font-size: 1.1rem;
+            color: #666666;
+            margin-bottom: 20px;
+        }
+        .footer-social-icons a {
+            margin: 0 10px;
+            color: #333333;
+            font-size: 1.5rem;
+        }
+        .footer-links {
+            text-align: left;
+            margin-bottom: 20px;
+        }
+        .footer-links h5 {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        .footer-links ul li {
+            margin-bottom: 5px;
+        }
+        .footer-links ul li a {
+            color: #333333;
+            text-decoration: none;
+        }
+        .footer-links ul li a:hover {
+            text-decoration: underline;
+        }
+        .footer-bottom {
+            border-top: 1px solid #dddddd;
+            padding-top: 10px;
+            color: #666666;
+        }
+        .text-section {
+            flex: 1;
+            padding-right: 20px;
+        }
+        .text-section h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .text-section p {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+        .text-section a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+        .image-section {
+            flex: 1;
+            text-align: center;
+        }
+        .image-section img {
+            max-width: 100%;
+            height: auto;
+        }
+        .content-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .section {
+            flex: 1;
+            min-width: 250px;
+            margin: 10px;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .feature img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+        .main-wrapper {
+            padding: 50px 20px;
+        }
+        .rocket-images {
+            margin-left: 5px;
+        }
+        .signup-button {
+            margin: 20px 0;
+        }
+        .signup-button a {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .app-links {
+            margin-top: 20px;
+        }
+        .app-links img {
+            width: 150px;
+            margin: 10px;
+        }
+        .faq-heading {
+            margin-top: 50px;
+        }
+        .faq-section {
+            padding: 50px 20px;
+            max-width: 800px;
+            margin: auto;
+            text-align: left;
+        }
+        .faq-header {
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .faq-item {
+            border-top: 1px solid #eaeaea;
+            padding: 15px 0;
+        }
+        .faq-item:last-child {
+            border-bottom: 1px solid #eaeaea;
+        }
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 500;
+        }
+        .faq-arrow {
+            font-size: 18px;
+            transition: transform 0.3s;
+        }
+        .faq-answer {
+            display: none;
+            margin-top: 10px;
+            font-size: 16px;
+            line-height: 1.5;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-item.active .faq-arrow {
+            transform: rotate(180deg);
+        }
+        .testimonials-section {
+            padding: 50px 0;
+            background-color: #f8f9fa;
+        }
+        .testimonial-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            /* margin-left: 0; */
+        }
+        .testimonial-text {
+            color: #495057;
+            font-size: 1rem;
+        }
+        .testimonial-author {
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+        .testimonial-rating {
+            color: #ffc107;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Point of Sale</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#feature">Features</a>
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  More
+                </a>
+                <ul class="dropdown-menu">
+                  <li><a class="dropdown-item" href="#about">About Us</a></li>
+                  <li><a class="dropdown-item" href="https://getswipe.in/contact">Contact</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#faq">FAQ</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="login.html">Login</a>
+              </li>
+            </ul>
+            <form class="d-flex" id="searchForm" role="search">
+              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="searchInput">
+              <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+          </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1>Welcome to Point of Sale</h1>
+                    <p>Manage your business efficiently with our easy-to-use Point of Sale software.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Safe & Secure Section -->
+    <div class="container safe">
+        <div class="row">
+            <div class="col-md-12">
+                <p>100% SAFE & SECURE</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Feature Section -->
+    <div class="container feature-section">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="https://getswipe.in/static/img/hero-banner.webp" alt="Point of Sale" class="img-fluid feature-img">
+            </div>
+            <div class="col-md-6">
+                <h2>Simple E-Invoicing</h2>
+                <p>Create Invoices, Purchases & Quotations in less than 10 seconds. Share on WhatsApp with payment links and get paid faster!</p>
+                <h3 class="trusted-customers">Trusted by Over 1 Million Customers</h3>
+                <div class="btn-group mt-4">
+                    <a href="signin.html">
+                        <button type="button" class="btn btn-primary btn-lg">Sign Up for Free</button>
+                    </a>
+                    <a href="login.html">
+                        <button type="button" class="btn btn-secondary btn-lg ms-3">Login</button>
+                    </a>
+                </div>
+                <!-- Image as a clickable link -->
+                <div class="mt-4">
+                    <a href="https://play.google.com/store/apps/details?id=in.swipe.app">
+                        <img src="google_play.png" alt="Google Play" style="max-width: 150px; height: auto;">
+                    </a>
+                </div>
+                <div class="mt-4">
+                    <a href="https://apps.apple.com/in/app/swipe-invoicing-and-payments/id6451307318">
+                        <img src="appstore.png" alt="App Store" style="max-width: 150px; height: auto;">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Carousel Section -->
+    <div class="container" id="format">
+        <h1 style="text-align: center; font-weight: 500; color: black; font-size: 50px; margin-top: 20px;">Awesome Invoice Formats</h1>
+        <br>
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img src="temp-1.webp" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="temp-2.webp" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="temp-7.webp" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="temp-10.webp" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="temp-12.webp" class="d-block w-100" alt="...">
+              </div>
+              <div class="carousel-item">
+                <img src="temp-13.webp" class="d-block w-100" alt="...">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+    </div>
+
+    <!-- Free Invoice Section -->
+    <div class="container free-invoice-btn">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>Get Your First Free Invoice Today</h2>
+                <a href="invoice.html" class="btn btn-primary btn-lg mt-3">Free Invoice</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Your Previous Content -->
+    <div class="container" style="background-color: lightblue; margin: 20px; text-align: center; margin-left: 70px;">
+        <div class="container">
+            <h1>Simple Billing and Payments App</h1>
+            <p>Swipe is a free GST billing software, helps you track your sales, purchases & estimates in real-time. With Swipe, you can easily manage your inventory, file GST returns, create & share professional invoices.</p>
+            <a href="signin.html" class="btn" style="background-color: #343a40; color: white; margin-bottom: 20px;">Sign up for Free</a>
+        </div>
+    </div>
+
+    <!-- Custom Section -->
+    <div class="container custom-section" id="feature">
+        <div class="row custom-container">
+            <div class="col-md-6 text-section">
+                <h1 style="font-size: xx-large;">Advanced Inventory Management</h1>
+                <p style="font-size: large;">Keep track of your stock levels, manage orders, and ensure you never run out of important items. Our POS system offers real-time inventory updates and detailed reporting.</p>
+                <a href="invoice.html" class="btn btn-primary">Create Invoices for FREE</a>
+            </div>
+            <div class="col-md-6 image-section">
+                <img src="swipe_software.webp" alt="Inventory Management">
+            </div>
+        </div>
+    </div>
+    <div class="container share-section">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="share_invoices_on_whatsapp_1.webp" alt="Share invoices on WhatsApp & Email" class="img-fluid">
+            </div>
+            <div class="col-md-6 share-text">
+                <h2>Share invoices on WhatsApp & Email</h2>
+                <p>Swipe helps you reach your customers and vendors wherever they are. Share invoices and purchase orders on WhatsApp and Email.</p>
+                <a href="invoice.html" class="btn btn-primary">Get Started with Swipe</a>
+            </div>
+        </div>
+    </div>
+    <div class="container custom-section">
+        <div class="row custom-container">
+            <div class="col-md-6 text-section">
+                <h1 style="font-size: xx-large;">GST filings made easy</h1>
+                <p style="font-size: large;">Using Swipe, you can quickly generate GST reports to instantly file your returns.</p>
+                <a href="invoice.html" class="btn btn-primary">Get GST Reports for FREE</a>
+            </div>
+            <div class="col-md-6 image-section">
+                <img src="gst_filings.webp" alt="Inventory Management">
+            </div>
+        </div>
+    </div>
+    <div class="container share-section">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="inventory_management.webp" alt="Share invoices on WhatsApp & Email" class="img-fluid">
+            </div>
+            <div class="col-md-6 share-text">
+                <h2><b>Manage inventory</b></h2>
+                <p style="font-size: large;">Swipe Inventory is designed to help you spend less time in front of the screen and more time with your customers. Download reports on current inventory and update inventory quantities in bulk, which is helpful when adding new inventory.</p>
+                <a href="invoice.html" class="btn btn-primary">Manage Inventoryfor FREE</a>
+            </div>
+        </div>
+    </div>
+    <div class="container custom-section">
+        <div class="row custom-container">
+            <div class="col-md-6 text-section">
+                <h1 style="font-size: xx-large;">Get payments faster</h1>
+                <p style="font-size: large;">With Swipe you can send payment links and even QR codes so that customers can pay you quickly. Send payment reminders easily. Make payments to your suppliers conveniently from your trusted UPI apps.</p>
+                <a href="invoice.html" class="btn btn-primary">Try SWIPE for FREE</a>
+            </div>
+            <div class="col-md-6 image-section">
+                <img src="fast_payments.webp" alt="Inventory Management">
+            </div>
+        </div>
+    </div>
+    <div class="container share-section">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <img src="inventory_management.webp" alt="Share invoices on WhatsApp & Email" class="img-fluid">
+            </div>
+            <div class="col-md-6 share-text">
+                <h2><b>Get your store Online</b></h2>
+                <p style="font-size: large;">With Swipe you can setup your online store and grow your business. Set up your online store with products, images, prices & exclusive offers. Directly share your store link with customers to receive online orders and payments!</p>
+                <a href="invoice.html" class="btn btn-primary">Create Online Store Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="container custom-section">
+        <div class="row custom-container">
+            <div class="col-md-6 text-section">
+                <h1 style="font-size: xx-large;">Powerful business analytics and Reports</h1>
+                <p style="font-size: large;">Swipe automatically generates all the business analytics you will ever need to answer any question about the product/categorywise sales or to understand your users and payments.</p>
+                <a href="invoice.html" class="btn btn-primary">Try SWIPE for FREE</a>
+            </div>
+            <div class="col-md-6 image-section">
+                <img src="business_analytics.webp" alt="Inventory Management">
+            </div>
+        </div>
+    </div>
+    <h1 id="why" style="text-align: center;">Why Swipe?</h1>
+    <div class="content-wrapper">
+        <div class="section">
+            <div class="feature"><img src="accept.svg" alt="Tick">Create invoice within 10 seconds</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Delivery Challan</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Share invoices on WhatsApp and Email</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Payment ledger</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Edit bills</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Generate ProForma Invoices</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Unlimited Customers</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">User Role Settings</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Customer/Vendor details</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Real time Analytics</div>
+        </div>
+        <div class="section">
+            <div class="feature"><img src="accept.svg" alt="Tick">Customize invoices</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">GSTR report</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Payment reminders</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">POS billing</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Purchase orders and purchase invoices</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Stock and Inventory Management</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Unlimited Products/ Bulk Upload</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Multiple GSTs Accounting</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Manage Expenses</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Online Store</div>
+        </div>
+        <div class="section">
+            <div class="feature"><img src="accept.svg" alt="Tick">Multiple invoice templates</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Credit note</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Integrated payment gateway</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Thermal printing</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Generate Estimates/Quotation</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Unlimited Logins</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Multiple User/Business accounts</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Multiple Pricing (Wholesale/Retail)</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Profit/Loss statement</div>
+            <div class="feature"><img src="accept.svg" alt="Tick">Add Product Variants</div>
+        </div>
+    </div>
+    <div class="main-wrapper">
+        <h1 style="text-align: center;">Get started in less than 60 seconds</h1> 
+        <div class="signup-button" style="text-align: center;">
+            <a href="signin.html">Sign Up for Free</a>
+        </div>
+        <p style="text-align: center;">Available on</p>
+        <div class="app-links" style="text-align: center;">
+            <a href="https://play.google.com/store/apps/details?id=in.swipe.app"><img src="google_play.png" alt="Google Play"></a>
+            <a href="https://apps.apple.com/in/app/swipe-invoicing-and-payments/id6451307318"><img src="appstore.png" alt="App Store"></a>
+        </div>
+    </div>
+    <div class="faq-section" id="faq">
+        <h2 class="faq-header">Frequently asked questions</h2>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>What can I do with Swipe?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                With Swipe you can create all categories of Billing documents like Sales Invoices, Sales Returns, Purchase Invoices, Purchase Orders, Estimates, Manage Inventory in real time with Stock In & Stock Out options, and generate Delivery Challans for Invoices directly. Barcode Scanner and Thermal Print options are also available.
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Is my data safe on Swipe?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Swipe stores user data on its cloud using "Bank Grade" 256-bit SSL encryption. Data is not shared with any external parties. Please find the Privacy Policy and Terms for more details.
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I add my Company's details and logo on Swipe?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes, you can add your Company Name, GSTIN, Address and Logo to your invoices.
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I use Swipe for Free?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Swipe offers a free version with basic features.
+                Yes, Swipe Mobile app & Web version are absolutely free to use for life-time to create unlimited invoices, purchases, quotations, manage customers/vendors, stock, payments, expenses, share bills via WhatsApp, Email or SMS etc. Start using Swipe for Free!
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Who all can use Swipe?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Swipe is a software for all kinds of small businesses, freelancers and Indian Startups. Anyone can start using Swipe to generate Invoices and other documents. All you need to do is sign-up with your mobile number and start using it!
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I share my invoices or other documents with my customers?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes, you can share your Invoices either on Whatsapp, Email or as an invoice link.
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Is there any limit on the number of GSTINs I can add on Swipe?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                As long as the user remains the same, there is no limit to the number of GSTINs you can add on Swipe.
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Is it possible to add multiple users?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I control user permission for multiple users ?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes with Swipe you can set user Role Settings for different users.
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Does my data on Swipe web sync to Swipe mobile app?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes, if you have used the same mobile number to login to Swipe on both mobile app as well as the web. All your data including invoices created, customers added, items added etc. will be synced.
+            </div>
+        </div><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I receive payments on Swipe?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes
+            </div><br>
+        </div>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I send reminders for pending payments on Swipe?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes , you can directly send reminders to customers for their outstanding payment and keep track of payment ledger on a single Dashboard Screen .
+            </div>
+        </div><br><br>
+        <div class="faq-item">
+            <div class="faq-question">
+                <span>Can I recover my data if my system crashes?</span>
+                <span class="faq-arrow">▼</span>
+            </div>
+            <div class="faq-answer">
+                Yes, you need not worry about data recovery at all since all the data is stored on cloud servers. Even if your system or mobile crashes, you can login via another system with your mobile number and recover your data there.
+            </div><br>
+    </div>
+    <div class="container testimonials-section" id="about">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="reviews.webp" alt="Testimonials" class="testimonial-image">
+            </div>
+            <div class="col-md-6">
+                <div class="testimonial">
+                    <p class="testimonial-text" style="font-size: large;">We have been using Swipe for AgriVijay - Invoicing along with book keeping and the experience has been amazing. Their 10 sec Invoicing and Quotation creation feature is true and best. I am sure they are going to disrupt the market with their unique set of benefits.</p>
+                    <p class="testimonial-author" style="font-size: large;">Vimal Panjwani <span class="text-muted">(Founder & CEO - AgriVijay)</span></p>
+                    <div class="testimonial-rating" style="font-size: large;">★★★★★</div>
+                </div>
+                <div class="testimonial mt-4">
+                    <p class="testimonial-text" style="font-size: large;">Discovered Swipe recently. Total kick-ass billing software. Making my life easy and one temple very happy.</p>
+                    <p class="testimonial-author" style="font-size: large;">Dinesh Thirumurthy <span class="text-muted">(Sri Ganesh Store)</span></p>
+                    <div class="testimonial-rating" style="font-size: large;">★★★★★</div>
+                </div>
+                <div class="testimonial mt-4">
+                    <p class="testimonial-text" style="font-size: large;">Amazing Product. Have been using it for last few months and it has solved all my invoicing woes! Kudos to the team :)</p>
+                    <p class="testimonial-author" style="font-size: large;">Rishabh Nagpal <span class="text-muted">(Co-Founder - Parksmart | IIT Delhi)</span></p>
+                    <div class="testimonial-rating" style="font-size: large;">★★★★★</div>
+                </div>
+                <div class="testimonial mt-4">
+                    <p class="testimonial-text" style="font-size: large;">Swipe has helped our startup incubator 'riidl.org' to streamline our invoices, generate quotations quickly and instantly send the same.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container footer-section">
+        <div class="row">
+            <div class="col-md-3">
+                <!-- <div class="footer-logo">
+                    <img src="" alt="Swipe Logo">
+                </div> -->
+                <!-- <div class="footer-tagline">
+                    Ab Business Karo, Tension Free!
+                </div> -->
+                <div class="footer-social-icons">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-md-2 footer-links">
+                <h5>QUICK LINKS</h5>
+                <ul>
+                    <li><a href="#why">Why Swipe?</a></li>
+                    <li><a href="#">E-Waybill</a></li>
+                    <li><a href="#">E-Invoice</a></li>
+                    <li><a href="#format">Invoice Formats</a></li>
+                    <li><a href="#">Swipe for Accountants</a></li>
+                    <li><a href="#faq">FAQs</a></li>
+                    <li><a href="https://www.youtube.com/@swipebilling">Tutorials</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 footer-links">
+                <h5>EXPLORE</h5>
+                <ul>
+                    <li><a href="#">Join Community</a></li>
+                    <li><a href="#">Product Updates</a></li>
+                    <li><a href="#">Tools</a></li>
+                    <li><a href="#">Explore GST</a></li>
+                    <li><a href="#">Tech</a></li>
+                    <li><a href="#">Trending</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 footer-links">
+                <h5>COMPANY</h5>
+                <ul>
+                    <li><a href="#">Contact</a></li>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Jobs</a></li>
+                    <li><a href="#">Press</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2 footer-links">
+                <h5>LEGAL</h5>
+                <ul>
+                    <li><a href="#">Privacy</a></li>
+                    <li><a href="#">Refund</a></li>
+                    <li><a href="#">Terms</a></li>
+                    <li><a href="#">Referral Program</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom mt-4">
+            &copy; 2024 Nextspeed Technologies Private Limited. All rights reserved.
+        </div>
+    </div>
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // JavaScript for handling search form submission
+        const form = document.getElementById('searchForm');
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form submission
+            const searchInput = document.getElementById('searchInput').value;
+            // Here you can implement search functionality (e.g., redirect to search results page)
+            console.log('Searching for:', searchInput);
+            // Replace this with your actual search implementation
+        });
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
